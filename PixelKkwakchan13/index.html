@@ -1,8 +1,25 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>픽셀꽉찬체13</title>
-<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="13×13 픽셀 격자 안에 자모를 빈틈없이 꽉 채워 넣은 고정폭 픽셀 한글 폰트. 한글 완성자 11,172자와 첫가끝 자모 조합을 모두 지원합니다.">
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="진윤 폰트 카탈로그">
+<meta property="og:title" content="픽셀꽉찬체13">
+<meta property="og:description" content="13×13 픽셀 격자에 빈틈없이 꽉 채운 고정폭 픽셀 한글 폰트">
+<meta property="og:url" content="https://newhajinyoon.github.io/jinyoonfonts/PixelKkwakchan13/">
+<meta property="og:image" content="https://newhajinyoon.github.io/jinyoonfonts/PixelKkwakchan13/pre.png">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="픽셀꽉찬체13">
+<meta name="twitter:description" content="13×13 픽셀 격자에 빈틈없이 꽉 채운 고정폭 픽셀 한글 폰트">
+<meta name="twitter:image" content="https://newhajinyoon.github.io/jinyoonfonts/PixelKkwakchan13/pre.png">
+
 <style>
-/* 픽셀꽉찬체13 */
 @font-face {
   font-family: 'PixelKkwakchan13';
   src: url('https://cdn.jsdelivr.net/gh/newhajinyoon/PixelKkwakchan13@v1.0.0/dist/PixelKkwakchan13.woff2') format('woff2'),
@@ -10,7 +27,6 @@
   font-display: swap;
 }
 
-/* SUIT */
 @font-face {
     font-family: 'Suit';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Thin.woff2') format('woff2');
@@ -124,7 +140,6 @@ a { color: inherit; }
 .wrap { max-width: 840px; margin: 0 auto; }
 .mute { color: var(--mute); }
 
-/* top navigation */
 .topnav { display: flex; align-items: center; }
 .back {
   display: inline-flex;
@@ -140,7 +155,6 @@ a { color: inherit; }
 }
 .back:hover { border-color: var(--accent); color: var(--accent); }
 
-/* 픽셀 폰트 전용 렌더링 */
 .title, .cell, #ta, .tp {
   font-family: var(--px);
   font-weight: 400;
@@ -150,13 +164,11 @@ a { color: inherit; }
   text-rendering: optimizeSpeed;
 }
 
-/* section header */
 .sec { margin-top: 98px; }
 .sh { display: flex; align-items: center; gap: 14px; color: var(--mute); margin-bottom: 42px; font-weight: 700; }
 .sh::after { content: ""; flex: 1; height: 1px; background: var(--line); }
 .sh-hidden-link { text-decoration: none; color: inherit; }
 
-/* hero */
 .hero { margin-top: 32px; }
 .title { font-size: 42px; line-height: 56px; letter-spacing: 0; }
 .en { color: var(--mute); margin-top: 14px; font-weight: 600; }
@@ -189,7 +201,6 @@ a { color: inherit; }
   .intro { font-size: 22px; line-height: 36px; }
 }
 
-/* structure (중앙 정렬) */
 .cells { display: flex; flex-wrap: wrap; gap: 28px; align-items: flex-end; justify-content: center; }
 .cellbox { display: grid; gap: 14px; justify-items: center; text-align: center; }
 .cell {
@@ -208,7 +219,6 @@ a { color: inherit; }
 .cell.h { width: 70px; }
 .cap { color: var(--mute); font-size: 14px; font-weight: 500; }
 
-/* tester */
 .tester { border: 1px solid var(--ink); }
 .ctl { display: grid; gap: 14px 42px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); padding: 28px; border-bottom: 1px solid var(--line); }
 .fld { display: grid; gap: 7px; min-width: 0; }
@@ -287,7 +297,6 @@ input[type=range]::-moz-range-thumb { width: 14px; height: 28px; background: var
   background-position: top right;
 }
 
-/* code (접기/펼치기) */
 .code { position: relative; border: 1px solid var(--line); margin-top: 28px; }
 .code summary {
   display: flex;
@@ -311,13 +320,11 @@ input[type=range]::-moz-range-thumb { width: 14px; height: 28px; background: var
 .code pre { padding: 28px; overflow-x: auto; white-space: pre; font-family: var(--ui); font-size: 14px; line-height: 24px; font-weight: 500; }
 .code .btn { position: absolute; right: 14px; top: 14px; height: 28px; padding: 0 14px; background: var(--bg); font-size: 13px; }
 
-/* table */
 .tbl { overflow-x: auto; border-top: 1px solid var(--line); }
 .tbl table { border-collapse: collapse; width: 100%; min-width: 560px; }
 .tbl th, .tbl td { text-align: left; font-weight: 500; padding: 14px 14px 14px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
 .tbl th { color: var(--mute); font-weight: 700; }
 
-/* license */
 .lic { display: grid; border-top: 1px solid var(--line); }
 .li { display: grid; grid-template-columns: 196px 140px minmax(0, 1fr); gap: 14px; padding: 14px 0; border-bottom: 1px solid var(--line); word-break: keep-all; }
 .li .st { display: flex; gap: 7px; align-items: flex-start; font-weight: 700; }
@@ -337,7 +344,6 @@ input[type=range]::-moz-range-thumb { width: 14px; height: 28px; background: var
 .lic-notice a:hover { color: var(--accent); }
 .credit { margin-top: 14px; color: var(--ink); font-weight: 600; }
 
-/* tetoris (중앙 정렬, 39x39 글자 + 1px 격자선) */
 .stagewrap { width: 100%; display: flex; justify-content: center; }
 #stage {
   position: relative; overflow: hidden; border: 1px solid var(--line);
@@ -366,6 +372,8 @@ input[type=range]::-moz-range-thumb { width: 14px; height: 28px; background: var
 
 @media (prefers-reduced-motion: reduce) { .tp.flash { animation: none; color: var(--accent); } .tp.shift { transition: none; } }
 </style>
+</head>
+<body>
 
 <main class="wrap">
   <nav class="topnav" aria-label="상위 이동">
@@ -486,10 +494,8 @@ body {
 (function () {
   var $ = function (s) { return document.querySelector(s); };
 
-  /* 써보기 제어 */
   var ta = $('#ta'), size = $('#size'), gap = $('#gap'), gridCb = $('#grid'), gridWrap = $('#gridWrap'), vertCb = $('#vertCb');
 
-  /* plaintext-only 미지원 구형 브라우저용 붙여넣기 평문화 */
   ta.addEventListener('paste', function (e) {
     if (ta.contentEditable === 'plaintext-only') return;
     e.preventDefault();
@@ -528,7 +534,6 @@ body {
   window.addEventListener('resize', fit);
   apply();
 
-  /* 코드 복사 */
   var copy = $('#copy');
   copy.addEventListener('click', function () {
     var text = $('#snip').textContent;
@@ -541,7 +546,6 @@ body {
     try { navigator.clipboard.writeText(text).then(done, fallback); } catch (e) { fallback(); }
   });
 
-  /* 테토리스: 중앙 정렬 & 글자 2개씩 낙하 & 한글 완성자 전체(11,172자) */
   function randomHangul() {
     return String.fromCharCode(0xAC00 + Math.floor(Math.random() * 11172));
   }
