@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>진윤 폰트 카탈로그</title>
+<style>
+@font-face {
+  font-family: 'Suit';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Suit';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Suit';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-SemiBold.woff2') format('woff2');
+  font-weight: 600;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Suit';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'PixelKkwakchan13';
+  src: url('https://cdn.jsdelivr.net/gh/newhajinyoon/PixelKkwakchan13@v1.0.0/dist/PixelKkwakchan13.woff2') format('woff2'),
+       url('https://cdn.jsdelivr.net/gh/newhajinyoon/PixelKkwakchan13@main/PixelKkwakchan13.ttf') format('truetype');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'PixelPpittul';
+  src: url('./PixelPpittul/PixelPpittul.ttf') format('truetype');
+  font-display: swap;
+}
+
+:root {
+  --bg: #f2f3f5;
+  --ink: #0d0e12;
+  --mute: #6a6e7a;
+  --line: #d3d5db;
+  --sel: #d8dae2;
+  --accent: #2f3cff;
+  --ui: 'Suit', -apple-system, BlinkMacSystemFont, sans-serif;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0c0d10;
+    --ink: #e9eaee;
+    --mute: #8c909c;
+    --line: #272a33;
+    --sel: #262933;
+    --accent: #8b96ff;
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg: #0c0d10;
+  --ink: #e9eaee;
+  --mute: #8c909c;
+  --line: #272a33;
+  --sel: #262933;
+  --accent: #8b96ff;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--ui);
+  font-size: 15px;
+  line-height: 26px;
+  font-weight: 500;
+  -webkit-font-smoothing: antialiased;
+  padding-left: max(20px, env(safe-area-inset-left, 0px));
+  padding-right: max(20px, env(safe-area-inset-right, 0px));
+}
+
+h1, p, ul, li {
+  margin: 0;
+  padding: 0;
+  font-weight: inherit;
+  font-size: inherit;
+}
+
+ul { list-style: none; }
+a { color: inherit; }
+::selection { background: var(--sel); color: var(--accent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+.wrap {
+  max-width: 640px;
+  min-height: 100dvh;
+  margin: 0 auto;
+  padding-block: 64px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 56px;
+}
+
+.eyebrow {
+  font-size: 13px;
+  line-height: 20px;
+  font-weight: 600;
+  color: var(--mute);
+  letter-spacing: 0.02em;
+}
+
+h1 {
+  margin-top: 10px;
+  font-size: 32px;
+  line-height: 44px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.lead {
+  margin-top: 14px;
+  color: var(--mute);
+  word-break: keep-all;
+}
+
+.list {
+  border-top: 1px solid var(--line);
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 24px 0;
+  border-bottom: 1px solid var(--line);
+  text-decoration: none;
+  transition: border-color .2s ease;
+}
+
+.item-info {
+  display: grid;
+  gap: 4px;
+}
+
+.item-name {
+  font-size: 18px;
+  line-height: 26px;
+  font-weight: 400;
+  font-synthesis: none;
+  transition: color .2s ease;
+}
+
+.font-kkwakchan { font-family: 'PixelKkwakchan13', var(--ui); }
+.font-ppittul { font-family: 'PixelPpittul', var(--ui); }
+
+.item-meta {
+  font-size: 13px;
+  line-height: 20px;
+  color: var(--mute);
+  font-weight: 500;
+}
+
+.item-arrow {
+  font-size: 18px;
+  line-height: 1;
+  color: var(--mute);
+  flex: none;
+  transition: transform .2s ease, color .2s ease;
+}
+
+.item:hover {
+  border-bottom-color: var(--accent);
+}
+
+.item:hover .item-name,
+.item:hover .item-arrow {
+  color: var(--accent);
+}
+
+.item:hover .item-arrow {
+  transform: translateX(4px);
+}
+
+.foot {
+  font-size: 14px;
+  line-height: 24px;
+  color: var(--mute);
+  word-break: keep-all;
+}
+
+.foot a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: var(--line);
+  text-underline-offset: 4px;
+  transition: color .2s ease, text-decoration-color .2s ease;
+}
+
+.foot a:hover {
+  color: var(--accent);
+  text-decoration-color: var(--accent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .item, .item-name, .item-arrow, .foot a { transition: none; }
+  .item:hover .item-arrow { transform: none; }
+}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <header>
+    <h1>진윤 폰트 카탈로그</h1>
+    <p class="lead">진윤이 만든 폰트들!</p>
+  </header>
+
+  <section aria-label="폰트 목록">
+    <ul class="list">
+      <li>
+        <a class="item" href="./PixelKkwakchan13">
+          <div class="item-info">
+            <span class="item-name font-kkwakchan">픽셀꽉찬체13</span>
+            <span class="item-meta">PixelKkwakchan13 · 13×13 고정폭 픽셀 한글 · OFL-1.1</span>
+          </div>
+          <span class="item-arrow" aria-hidden="true">→</span>
+        </a>
+      </li>
+      <li>
+        <a class="item" href="./PixelPpittul">
+          <div class="item-info">
+            <span class="item-name font-ppittul">픽셀삐뚤체</span>
+            <span class="item-meta">PixelPpittul · 삐뚤빼뚤 · OFL-1.1</span>
+          </div>
+          <span class="item-arrow" aria-hidden="true">→</span>
+        </a>
+      </li>
+    </ul>
+  </section>
+
+  <footer class="foot">
+    <p><a href="https://github.com/newhajinyoon" target="_blank" rel="noopener">GitHub</a> | <a href="https://discord.gg/24XQDCTfjd" target="_blank" rel="noopener">Discord</a> / <a href="mailto:newhajinyoon@gmail.com">newhajinyoon@gmail.com</a></p>
+  </footer>
+</main>
+</body>
+</html>
