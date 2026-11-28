@@ -40,6 +40,11 @@
   src: url('./PixelPpittul/PixelPpittul.ttf') format('truetype');
   font-display: swap;
 }
+@font-face {
+  font-family: 'dazelDS15';
+  src: url('./dazelDS15/dazelDS15.ttf') format('truetype');
+  font-display: swap;
+}
 
 :root {
   --bg: #f2f3f5;
@@ -48,9 +53,14 @@
   --line: #d3d5db;
   --sel: #d8dae2;
   --accent: #2f3cff;
+  --dazel-gold: #a67200;
   --ui: 'Suit', -apple-system, BlinkMacSystemFont, sans-serif;
+  --wob: url(#wob0);
   color-scheme: light;
 }
+:root[data-wob="1"] { --wob: url(#wob1); }
+:root[data-wob="2"] { --wob: url(#wob2); }
+:root[data-wob="3"] { --wob: url(#wob3); }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
@@ -60,6 +70,7 @@
     --line: #272a33;
     --sel: #262933;
     --accent: #8b96ff;
+    --dazel-gold: #e0b030;
     color-scheme: dark;
   }
 }
@@ -71,6 +82,7 @@
   --line: #272a33;
   --sel: #262933;
   --accent: #8b96ff;
+  --dazel-gold: #e0b030;
   color-scheme: dark;
 }
 
@@ -167,7 +179,13 @@ h1 {
 }
 
 .font-kkwakchan { font-family: 'PixelKkwakchan13', var(--ui); }
-.font-ppittul { font-family: 'PixelPpittul', var(--ui); }
+.font-ppittul {
+  font-family: 'PixelPpittul', var(--ui);
+  -webkit-font-smoothing: none;
+  font-smooth: never;
+  text-rendering: optimizeSpeed;
+}
+.font-dazel { font-family: 'dazelDS15', var(--ui); }
 
 .item-meta {
   font-size: 13px;
@@ -197,6 +215,116 @@ h1 {
   transform: translateX(4px);
 }
 
+/* 픽셀삐뚤체 스크리블 선 연출 */
+.item-ppittul {
+  position: relative;
+  border-bottom-color: transparent;
+}
+
+.item-ppittul::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -8px;
+  height: 16px;
+  background: linear-gradient(transparent 7px, var(--line) 7px, var(--line) 8.5px, transparent 8.5px);
+  pointer-events: none;
+  filter: var(--wob);
+}
+
+.item-ppittul .item-arrow {
+  font-family: 'PixelPpittul', var(--ui);
+  -webkit-font-smoothing: none;
+  font-smooth: never;
+}
+
+.item-ppittul:hover,
+.item-ppittul:focus-visible {
+  border-bottom-color: transparent;
+}
+
+.item-ppittul:hover::after,
+.item-ppittul:focus-visible::after {
+  background: linear-gradient(transparent 7px, var(--accent) 7px, var(--accent) 8.5px, transparent 8.5px);
+}
+
+.item-ppittul:focus-visible .item-name,
+.item-ppittul:focus-visible .item-arrow {
+  color: var(--accent);
+}
+
+.item-ppittul:focus-visible .item-arrow {
+  transform: translateX(4px);
+}
+
+/* 다젤DS15 전용 연출 */
+.item-dazel .item-name-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.item-dazel .dazel-cursor {
+  position: absolute;
+  left: 0;
+  font-family: 'dazelDS15', var(--ui);
+  font-size: 15px;
+  line-height: 26px;
+  color: var(--dazel-gold);
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: opacity .15s steps(2), transform .15s steps(2);
+}
+
+.item-dazel .item-name {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  transition: color .15s steps(2), transform .15s steps(2);
+}
+
+.item-dazel .dazel-sword {
+  width: 15px;
+  height: 15px;
+  flex: none;
+  image-rendering: pixelated;
+}
+
+.item-dazel .item-arrow {
+  font-family: 'dazelDS15', var(--ui);
+  font-size: 15px;
+  transition: transform .15s steps(3), color .15s steps(2);
+}
+
+.item-dazel:hover,
+.item-dazel:focus-visible {
+  border-bottom-color: var(--dazel-gold);
+}
+
+.item-dazel:focus-visible {
+  outline-color: var(--dazel-gold);
+}
+
+.item-dazel:hover .dazel-cursor,
+.item-dazel:focus-visible .dazel-cursor {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.item-dazel:hover .item-name,
+.item-dazel:focus-visible .item-name {
+  color: var(--dazel-gold);
+  transform: translateX(16px);
+}
+
+.item-dazel:hover .item-arrow,
+.item-dazel:focus-visible .item-arrow {
+  color: var(--dazel-gold);
+  transform: translateX(4px);
+}
+
 .foot {
   font-size: 14px;
   line-height: 24px;
@@ -218,12 +346,50 @@ h1 {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .item, .item-name, .item-arrow, .foot a { transition: none; }
-  .item:hover .item-arrow { transform: none; }
+  .item,
+  .item-name,
+  .item-arrow,
+  .item-dazel .dazel-cursor,
+  .foot a {
+    transition: none;
+  }
+  .item:hover .item-arrow,
+  .item-ppittul:focus-visible .item-arrow,
+  .item-dazel:hover .item-name,
+  .item-dazel:focus-visible .item-name,
+  .item-dazel:hover .item-arrow,
+  .item-dazel:focus-visible .item-arrow {
+    transform: none;
+  }
+  .item-dazel:hover .dazel-cursor,
+  .item-dazel:focus-visible .dazel-cursor {
+    opacity: 0;
+  }
 }
 </style>
 </head>
 <body>
+<svg aria-hidden="true" width="0" height="0" style="position:absolute;width:0;height:0;overflow:hidden">
+  <defs>
+    <filter id="wob0" x="-2%" y="-40%" width="104%" height="180%">
+      <feTurbulence type="turbulence" baseFrequency="0.035" numOctaves="2" seed="1" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="3.5" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <filter id="wob1" x="-2%" y="-40%" width="104%" height="180%">
+      <feTurbulence type="turbulence" baseFrequency="0.035" numOctaves="2" seed="7" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="3.5" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <filter id="wob2" x="-2%" y="-40%" width="104%" height="180%">
+      <feTurbulence type="turbulence" baseFrequency="0.035" numOctaves="2" seed="19" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="3.5" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <filter id="wob3" x="-2%" y="-40%" width="104%" height="180%">
+      <feTurbulence type="turbulence" baseFrequency="0.035" numOctaves="2" seed="31" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="3.5" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </defs>
+</svg>
+
 <main class="wrap">
   <header>
     <h1>진윤 폰트 카탈로그</h1>
@@ -242,10 +408,24 @@ h1 {
         </a>
       </li>
       <li>
-        <a class="item" href="./PixelPpittul">
+        <a class="item item-ppittul" href="./PixelPpittul">
           <div class="item-info">
             <span class="item-name font-ppittul">픽셀삐뚤체</span>
             <span class="item-meta">PixelPpittul · 삐뚤빼뚤 · OFL-1.1</span>
+          </div>
+          <span class="item-arrow" aria-hidden="true">→</span>
+        </a>
+      </li>
+      <li>
+        <a class="item item-dazel" href="./dazelDS15">
+          <div class="item-info">
+            <div class="item-name-wrap">
+              <span class="dazel-cursor" aria-hidden="true">▶</span>
+              <span class="item-name font-dazel">
+                다젤DS15
+              </span>
+            </div>
+            <span class="item-meta">dazelDS15 · DS 시절 모험을 닮은 픽셀 폰트 · OFL-1.1</span>
           </div>
           <span class="item-arrow" aria-hidden="true">→</span>
         </a>
@@ -257,5 +437,41 @@ h1 {
     <p><a href="https://github.com/newhajinyoon" target="_blank" rel="noopener">GitHub</a> | <a href="https://discord.gg/24XQDCTfjd" target="_blank" rel="noopener">Discord</a> / <a href="mailto:newhajinyoon@gmail.com">newhajinyoon@gmail.com</a></p>
   </footer>
 </main>
+
+<script>
+(function () {
+  var item = document.querySelector('.item-ppittul');
+  if (!item) return;
+  var root = document.documentElement;
+  var rm = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var frame = 0;
+  var timer = null;
+
+  function sync() {
+    var active = !rm.matches && !document.hidden && item.matches(':hover, :focus-visible');
+    if (active && !timer) {
+      timer = setInterval(function () {
+        if (rm.matches || document.hidden || !item.matches(':hover, :focus-visible')) {
+          clearInterval(timer);
+          timer = null;
+          return;
+        }
+        frame = (frame + 1) % 4;
+        if (frame === 0) root.removeAttribute('data-wob');
+        else root.setAttribute('data-wob', frame);
+      }, 180);
+    } else if (!active && timer) {
+      clearInterval(timer);
+      timer = null;
+    }
+  }
+
+  item.addEventListener('mouseenter', sync);
+  item.addEventListener('mouseleave', sync);
+  item.addEventListener('focusin', sync);
+  item.addEventListener('focusout', sync);
+  document.addEventListener('visibilitychange', sync);
+})();
+</script>
 </body>
 </html>

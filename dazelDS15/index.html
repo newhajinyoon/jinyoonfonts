@@ -1,0 +1,1492 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
+  <title>다젤DS15</title>
+  <meta name="description" content="DS 시절 모험 게임에 나올 법한 픽셀 한글 폰트, 다젤DS15. 한글 완성형 전체, 히라가나, 가타카나, 알파벳 지원.">
+  <style>
+    @font-face {
+      font-family: 'dazel';
+      src: url('./dazelDS15.ttf') format('truetype');
+      font-display: block;
+    }
+
+    :root {
+      --ink: #1d2147;
+      --navy: #141a40;
+      --paper: #e8dcb0;
+      --paper2: #d9cb98;
+      --gold: #e0b030;
+      --cream: #f4ecd0;
+      --px: 'dazel', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+    }
+
+    html,
+    body {
+      height: 100%;
+      background: #0b0a12;
+      overflow: hidden;
+      font-family: var(--px);
+      color: var(--cream);
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .topnav {
+      flex: 0 0 auto;
+      padding: 8px 12px 0;
+    }
+
+    .back {
+      display: inline-block;
+      padding: 2px 6px;
+      font-size: 15px;
+      line-height: 20px;
+      color: var(--cream);
+      text-decoration: none;
+      background: #1c1b28;
+      border: 1px solid #55537a;
+    }
+
+    .back:hover,
+    .back:focus-visible {
+      color: var(--ink);
+      background: var(--gold);
+      border-color: var(--gold);
+    }
+
+    #wrap {
+      flex: 1;
+      min-height: 0;
+      display: grid;
+      place-items: center;
+    }
+
+    #box {
+      position: relative;
+    }
+
+    #dev {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 256px;
+      height: 400px;
+      transform-origin: 0 0;
+      background: #2b2a3a;
+      box-shadow: 0 0 0 4px #2b2a3a, 0 0 0 5px #55537a;
+      font-size: 15px;
+      line-height: 20px;
+    }
+
+    .scr {
+      position: absolute;
+      left: 0;
+      width: 256px;
+      height: 192px;
+      overflow: hidden;
+      background: #000;
+    }
+
+    #top {
+      top: 0;
+    }
+
+    #bot {
+      top: 208px;
+      background: var(--paper);
+    }
+
+    #cv,
+    #dcv {
+      display: block;
+      width: 256px;
+      height: 192px;
+      image-rendering: pixelated;
+    }
+
+    .band,
+    .wb {
+      position: absolute;
+      background: #000;
+    }
+
+    .band {
+      left: 0;
+      right: 0;
+      z-index: 30;
+    }
+
+    .band.g {
+      background: repeating-linear-gradient(
+        90deg,
+        #000 0 5px,
+        #2e9e6a 5px 8px,
+        #000 8px 17px,
+        #e0b030 17px 19px,
+        #000 19px 31px,
+        #4a5f94 31px 35px
+      );
+    }
+
+    .wb {
+      width: 0;
+      z-index: 20;
+      transition: width 0.12s steps(3);
+    }
+
+    #hinge {
+      position: absolute;
+      top: 192px;
+      left: 0;
+      width: 256px;
+      height: 16px;
+      background: repeating-linear-gradient(90deg, #2b2a3a 0 3px, #1c1b28 3px 4px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #mute {
+      font: 13px/10px var(--px);
+      height: 12px;
+      padding: 0 5px;
+      background: #1c1b28;
+      color: #8c89b0;
+      border: 1px solid #55537a;
+      cursor: pointer;
+    }
+
+    #mute:hover {
+      color: var(--gold);
+    }
+
+    #led {
+      position: absolute;
+      right: 8px;
+      width: 4px;
+      height: 4px;
+      background: #423f58;
+      box-shadow: inset 0 0 0 1px #1c1b28;
+    }
+
+    #led.on {
+      background: #3be08a;
+      box-shadow: 0 0 4px #2e9e6a;
+    }
+
+    .bg {
+      position: absolute;
+      inset: 0;
+      font-size: 15px;
+      line-height: 15px;
+      color: var(--paper2);
+      word-break: break-all;
+      overflow: hidden;
+      opacity: 0.8;
+    }
+
+    .v {
+      position: absolute;
+      inset: 0;
+      display: none;
+      background: var(--navy);
+    }
+
+    .frame {
+      position: absolute;
+      inset: 6px;
+      border: 2px solid var(--cream);
+      box-shadow: 0 0 0 2px var(--navy);
+    }
+
+    #prev {
+      color: var(--cream);
+    }
+
+    #pview {
+      position: absolute;
+      inset: 11px 12px;
+      overflow: hidden;
+    }
+
+    #ptxt {
+      white-space: pre-wrap;
+      word-break: break-all;
+      font-size: 30px;
+      line-height: 34px;
+    }
+
+    #gv {
+      text-align: center;
+      color: var(--cream);
+    }
+
+    #gbig {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 10px;
+      font-size: 120px;
+      line-height: 126px;
+      color: var(--gold);
+    }
+
+    #gcode {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 138px;
+    }
+
+    #gsm {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 158px;
+      line-height: 22px;
+      color: var(--paper);
+    }
+
+    #toast {
+      position: absolute;
+      left: 8px;
+      right: 8px;
+      bottom: 8px;
+      min-height: 44px;
+      padding: 6px 8px;
+      background: var(--navy);
+      border: 2px solid var(--cream);
+      box-shadow: 0 0 0 2px var(--navy);
+      z-index: 10;
+      display: none;
+      line-height: 19px;
+      word-break: keep-all;
+      overflow-wrap: anywhere;
+      color: var(--cream);
+      cursor: pointer;
+    }
+
+    #panel {
+      position: absolute;
+      inset: 8px;
+      color: var(--ink);
+    }
+
+    #tabs {
+      display: flex;
+      gap: 2px;
+      height: 20px;
+    }
+
+    #tabs button,
+    .sz button {
+      font: 15px/16px var(--px);
+      background: var(--navy);
+      color: var(--cream);
+      border: 0;
+      padding: 0 4px;
+      height: 20px;
+      cursor: pointer;
+    }
+
+    #tabs button[aria-selected='true'],
+    .sz button[aria-pressed='true'] {
+      background: var(--gold);
+      color: var(--ink);
+    }
+
+    button:focus-visible,
+    a:focus-visible,
+    textarea:focus-visible,
+    #p3:focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 1px;
+    }
+
+    #pgs {
+      position: absolute;
+      top: 24px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      overflow: hidden;
+    }
+
+    .pg {
+      display: none;
+      position: absolute;
+      inset: 0;
+      border: 2px solid var(--navy);
+      background: #f6efd2;
+      padding: 3px 4px;
+      overflow-y: auto;
+      scrollbar-width: none;
+      line-height: 17px;
+    }
+
+    .pg::-webkit-scrollbar {
+      display: none;
+    }
+
+    .pg.on {
+      display: block;
+    }
+
+    #ta {
+      width: 100%;
+      height: 96px;
+      resize: none;
+      border: 0;
+      background: transparent;
+      color: var(--ink);
+      font: 15px/17px var(--px);
+      padding: 0;
+    }
+
+    .sz {
+      position: absolute;
+      right: 3px;
+      bottom: 3px;
+      display: flex;
+      gap: 2px;
+    }
+
+    .sz button {
+      height: 17px;
+      line-height: 13px;
+    }
+
+    .g1 {
+      margin-bottom: 6px;
+    }
+
+    .c {
+      display: inline-block;
+      min-width: 15px;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .c:hover {
+      background: var(--paper2);
+    }
+
+    .c.sel {
+      background: var(--gold);
+    }
+
+    #p3 {
+      overflow: hidden;
+      touch-action: none;
+    }
+
+    #iview {
+      position: absolute;
+      inset: 6px 12px 6px 5px;
+      overflow: hidden;
+    }
+
+    #ibody {
+      font-size: 15px;
+      line-height: 17px;
+      word-break: keep-all;
+      overflow-wrap: anywhere;
+      color: var(--ink);
+    }
+
+    #ibody p {
+      margin-bottom: 17px;
+    }
+
+    #ibody p:last-child {
+      margin-bottom: 0;
+    }
+
+    #ibody a {
+      color: var(--navy);
+      background: var(--paper2);
+      padding: 0 2px;
+    }
+
+    #isbar {
+      position: absolute;
+      top: 6px;
+      right: 4px;
+      bottom: 6px;
+      width: 4px;
+      background: var(--paper2);
+      cursor: pointer;
+      display: none;
+    }
+
+    #ithumb {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      height: 16px;
+      background: var(--navy);
+    }
+
+    .dl {
+      display: block;
+      margin: 10px 0 8px;
+      padding: 8px 6px;
+      text-align: center;
+      background: var(--navy);
+      color: var(--gold);
+      text-decoration: none;
+      border: 2px solid var(--gold);
+    }
+
+    .dl:hover,
+    .dl:focus-visible {
+      background: var(--gold);
+      color: var(--ink);
+    }
+
+    .pg p {
+      color: var(--ink);
+    }
+
+    #boot {
+      position: absolute;
+      inset: 0;
+      z-index: 50;
+      background: #000;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    #boot span {
+      color: var(--cream);
+      animation: bl 1s steps(2) infinite;
+    }
+
+    @keyframes bl {
+      50% {
+        opacity: 0;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      #boot span {
+        animation: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="topnav" aria-label="상위 이동">
+    <a class="back" href="../">← 폰트 카탈로그로 돌아가기</a>
+  </nav>
+
+  <main id="wrap">
+    <div id="box">
+      <div id="dev">
+        <div class="scr" id="top">
+          <canvas id="cv" width="256" height="192" aria-label="다젤DS15 타이틀 화면"></canvas>
+          <div class="v" id="prev">
+            <div class="frame"></div>
+            <div id="pview">
+              <div id="ptxt"></div>
+            </div>
+          </div>
+          <div class="v" id="gv">
+            <div class="frame"></div>
+            <div id="gbig"></div>
+            <div id="gcode"></div>
+            <div id="gsm"></div>
+          </div>
+          <div class="v" id="dv">
+            <canvas id="dcv" width="256" height="192" aria-label="다젤DS15 다운로드 아이콘"></canvas>
+          </div>
+          <div id="toast"></div>
+        </div>
+
+        <div id="hinge">
+          <button id="mute" type="button">소리 켜짐</button>
+          <span id="led" aria-hidden="true"></span>
+        </div>
+
+        <div class="scr" id="bot">
+          <div class="bg" id="bg" aria-hidden="true"></div>
+          <div id="panel">
+            <div id="tabs" role="tablist">
+              <button role="tab" aria-selected="true" data-p="p1">써보기</button>
+              <button role="tab" aria-selected="false" data-p="p2">글자표</button>
+              <button role="tab" aria-selected="false" data-p="p3">정보</button>
+              <button role="tab" aria-selected="false" data-p="p4">다운로드</button>
+            </div>
+            <div id="pgs">
+              <div class="pg on" id="p1">
+                <textarea id="ta" spellcheck="false" aria-label="글자 써보기">다젤DS15로 아무거나 써 보세요.
+ひらがな カタカナ ABC abc 123</textarea>
+                <div class="sz">
+                  <button data-s="15" aria-pressed="true">작게</button>
+                  <button data-s="30" aria-pressed="false">크게</button>
+                </div>
+              </div>
+              <div class="pg" id="p2"></div>
+              <div class="pg" id="p3" tabindex="0">
+                <div id="iview">
+                  <div id="ibody"></div>
+                </div>
+                <div id="isbar">
+                  <div id="ithumb"></div>
+                </div>
+              </div>
+              <div class="pg" id="p4">
+                <p>다젤DS15 글꼴 파일</p>
+                <a class="dl" href="./dazelDS15.ttf" download>dazelDS15.ttf 내려받기</a>
+                <p>라이선스는 정보 탭에서 확인하세요.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="boot" tabindex="0" role="button">
+          <span>▶ 화면을 터치하세요</span>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const el = {
+      wrap: document.getElementById('wrap'),
+      box: document.getElementById('box'),
+      dev: document.getElementById('dev'),
+      top: document.getElementById('top'),
+      bot: document.getElementById('bot'),
+      cv: document.getElementById('cv'),
+      dcv: document.getElementById('dcv'),
+      prev: document.getElementById('prev'),
+      pview: document.getElementById('pview'),
+      ptxt: document.getElementById('ptxt'),
+      gv: document.getElementById('gv'),
+      dv: document.getElementById('dv'),
+      gbig: document.getElementById('gbig'),
+      gcode: document.getElementById('gcode'),
+      gsm: document.getElementById('gsm'),
+      toast: document.getElementById('toast'),
+      mute: document.getElementById('mute'),
+      led: document.getElementById('led'),
+      bg: document.getElementById('bg'),
+      pgs: document.getElementById('pgs'),
+      ta: document.getElementById('ta'),
+      p2: document.getElementById('p2'),
+      p3: document.getElementById('p3'),
+      iview: document.getElementById('iview'),
+      ibody: document.getElementById('ibody'),
+      isbar: document.getElementById('isbar'),
+      ithumb: document.getElementById('ithumb'),
+      boot: document.getElementById('boot')
+    };
+
+    const tabButtons = [...document.querySelectorAll('#tabs button')];
+    const sizeButtons = [...document.querySelectorAll('.sz button')];
+    const pages = [...document.querySelectorAll('.pg')];
+    const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+    const randomRange = (min, max) => min + Math.random() * (max - min);
+
+    function loadAudio(file) {
+      const audio = new Audio(`./assets/${file}`);
+      audio.preload = 'auto';
+      return audio;
+    }
+
+    const sounds = {
+      load: loadAudio('load.wav'),
+      blip: loadAudio('text.wav'),
+      end: loadAudio('text_end.wav')
+    };
+
+    const bgm = loadAudio('SWORD.mp3');
+    bgm.loop = true;
+    bgm.volume = 0;
+
+    let isMuted = false;
+    let scale = 1;
+    let isReady = false;
+    let activeTab = 'p1';
+    let topMode = 'cv';
+    let hasTyped = false;
+    let isBusy = false;
+
+    function playSfx(name, volume = 0.5) {
+      if (isMuted) return;
+      try {
+        const audio = sounds[name].cloneNode();
+        audio.volume = volume;
+        audio.play().catch(() => {});
+      } catch (err) {}
+    }
+
+    function fitLayout() {
+      const w = el.wrap.clientWidth - 16;
+      const h = el.wrap.clientHeight - 16;
+      scale = Math.max(0.5, Math.floor(Math.min(w / 256, h / 400) * 2) / 2);
+      el.dev.style.transform = `scale(${scale})`;
+      el.box.style.width = `${256 * scale}px`;
+      el.box.style.height = `${400 * scale}px`;
+    }
+
+    fitLayout();
+
+    let titleBuffer = null;
+    let titleFrame = 0;
+    let titleTimer = null;
+
+    const TWINKLE_STARS = [
+      { x: 24, y: 12, phase: 0 },
+      { x: 46, y: 26, phase: 3 },
+      { x: 214, y: 14, phase: 6 },
+      { x: 236, y: 30, phase: 9 },
+      { x: 16, y: 34, phase: 12 }
+    ];
+
+    const FIREFLIES = [
+      { x: 28, y: 158, phase: 0 },
+      { x: 94, y: 170, phase: 4 },
+      { x: 138, y: 146, phase: 8 },
+      { x: 184, y: 166, phase: 2 },
+      { x: 222, y: 152, phase: 6 }
+    ];
+
+    function buildTitleBuffer() {
+      const buffer = document.createElement('canvas');
+      buffer.width = 256;
+      buffer.height = 192;
+      const ctx = buffer.getContext('2d');
+
+      let seed = 7;
+      const nextRand = () => {
+        seed = (seed * 16807) % 2147483647;
+        return seed / 2147483647;
+      };
+      const rect = (color, x, y, w, h) => {
+        ctx.fillStyle = color;
+        ctx.fillRect(x, y, w, h);
+      };
+
+      const skyColors = [
+        '#1d2147', '#2d3a6b', '#4a5f94', '#7f8fb0',
+        '#c9a7a0', '#f0b98a', '#f6d79a', '#fbeab8'
+      ];
+
+      skyColors.forEach((color, idx) => {
+        rect(color, 0, idx * 16, 256, 16);
+        if (idx > 0) {
+          for (let q = 0; q < 2; q++) {
+            for (let k = 0; k < 256; k += 2) {
+              rect(color, k + q, idx * 16 - 2 + q, 1, 1);
+            }
+          }
+        }
+      });
+
+      for (let i = 0; i < 26; i++) {
+        rect(nextRand() > 0.5 ? '#fff' : '#9fb0d8', nextRand() * 256 | 0, nextRand() * 40 | 0, 1, 1);
+      }
+
+      for (let dx = -22; dx <= 22; dx++) {
+        for (let dy = -22; dy <= 22; dy++) {
+          const dist = dx * dx + dy * dy;
+          if (dist <= 256) {
+            rect('#ffe08a', 196 + dx, 92 + dy, 1, 1);
+          } else if (dist <= 484 && (dx + dy) % 2 === 0) {
+            rect('#f6d79a', 196 + dx, 92 + dy, 1, 1);
+          }
+        }
+      }
+
+      for (let x = 0; x < 256; x++) {
+        let y = (118 + Math.sin(x / 23) * 8 + Math.sin(x / 9) * 2) | 0;
+        rect('#3b5f56', x, y, 1, 192 - y);
+
+        y = (136 + Math.sin(x / 31 + 2) * 9) | 0;
+        rect('#2f5a3a', x, y, 1, 192 - y);
+        rect('#6f9a52', x, y, 1, 2);
+
+        y = (162 + Math.sin(x / 17 + 1) * 4) | 0;
+        rect('#244a2e', x, y, 1, 192 - y);
+        rect('#4f7d3c', x, y, 1, 1);
+      }
+
+      for (let i = 0; i < 70; i++) {
+        const gx = nextRand() * 254 | 0;
+        const gy = (166 + nextRand() * 24) | 0;
+        rect('#6f9a52', gx, gy, 1, 3);
+        rect('#6f9a52', gx - 1, gy + 1, 1, 2);
+        rect('#6f9a52', gx + 1, gy + 1, 1, 2);
+      }
+
+      rect('#6b6f7d', 46, 152, 30, 14);
+      rect('#8d92a3', 46, 152, 30, 2);
+      rect('#4d5060', 46, 164, 30, 2);
+      rect('#7a3b2e', 59, 110, 3, 9);
+      rect('#e0b030', 58, 107, 5, 3);
+      rect('#e0b030', 53, 119, 13, 3);
+      rect('#9a7410', 53, 122, 13, 1);
+      rect('#dfe8f0', 59, 122, 3, 30);
+      rect('#fff', 59, 122, 1, 30);
+
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'alphabetic';
+      ctx.font = '30px dazel';
+      ctx.fillStyle = '#0b0e26';
+      ctx.fillText('다젤DS15', 130, 50);
+      ctx.fillStyle = '#e0b030';
+      ctx.fillText('다젤DS15', 128, 48);
+
+      ctx.font = '15px dazel';
+      ctx.fillStyle = '#0b0e26';
+      ctx.fillText('DS 시절 모험을 닮은 픽셀 폰트', 129, 73);
+      ctx.fillStyle = '#f4ecd0';
+      ctx.fillText('DS 시절 모험을 닮은 픽셀 폰트', 128, 72);
+
+      titleBuffer = buffer;
+    }
+
+    function renderTitleFrame(animated) {
+      if (!titleBuffer) buildTitleBuffer();
+      const ctx = el.cv.getContext('2d');
+      ctx.drawImage(titleBuffer, 0, 0);
+      if (!animated) return;
+
+      TWINKLE_STARS.forEach((star) => {
+        const tick = (titleFrame + star.phase) % 16;
+        if (tick === 0 || tick === 2) {
+          ctx.fillStyle = '#fff';
+          ctx.fillRect(star.x, star.y, 1, 1);
+        } else if (tick === 1) {
+          ctx.fillStyle = '#ffe08a';
+          ctx.fillRect(star.x - 1, star.y, 3, 1);
+          ctx.fillRect(star.x, star.y - 1, 1, 3);
+        }
+      });
+
+      const glintStep = titleFrame % 22;
+      if (glintStep < 10) {
+        const gy = 122 + glintStep * 3;
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(59, gy, 3, 2);
+      } else if (glintStep === 11) {
+        ctx.fillStyle = '#ffe08a';
+        ctx.fillRect(58, 108, 1, 1);
+        ctx.fillRect(62, 108, 1, 1);
+      }
+
+      FIREFLIES.forEach((fly) => {
+        const tick = (titleFrame + fly.phase) % 12;
+        if (tick < 9) {
+          const fx = fly.x + (Math.round(Math.sin((titleFrame + fly.phase) * 0.6)) * 2);
+          const fy = fly.y - (tick % 6);
+          ctx.fillStyle = tick % 3 === 0 ? '#fbeab8' : '#ffe08a';
+          ctx.fillRect(fx, fy, 1, 1);
+        }
+      });
+    }
+
+    function syncTitleAnimation(active) {
+      clearInterval(titleTimer);
+      titleTimer = null;
+      if (active && !reducedMotion) {
+        renderTitleFrame(true);
+        titleTimer = setInterval(() => {
+          titleFrame++;
+          renderTitleFrame(true);
+        }, 220);
+      } else {
+        renderTitleFrame(false);
+      }
+    }
+
+    let dlBob = false;
+    let dlTimer = null;
+
+    function drawDownloadIcon(bob = false) {
+      const ctx = el.dcv.getContext('2d');
+      const offset = bob ? 1 : 0;
+      const px = (color, x, y, w = 1, h = 1) => {
+        ctx.fillStyle = color;
+        ctx.fillRect(x * 4, y * 4, w * 4, h * 4);
+      };
+
+      ctx.fillStyle = '#141a40';
+      ctx.fillRect(0, 0, 256, 192);
+
+      px('#0b0e26', 28, 7 + offset, 8, 11);
+      px('#0b0e26', 23, 17 + offset, 18, 2);
+      px('#0b0e26', 24, 19 + offset, 16, 2);
+      px('#0b0e26', 26, 21 + offset, 12, 2);
+      px('#0b0e26', 28, 23 + offset, 8, 2);
+      px('#0b0e26', 30, 25 + offset, 4, 2);
+
+      px('#e0b030', 29, 8 + offset, 6, 10);
+      px('#e0b030', 24, 18 + offset, 16, 1);
+      px('#e0b030', 25, 19 + offset, 14, 2);
+      px('#e0b030', 27, 21 + offset, 10, 2);
+      px('#e0b030', 29, 23 + offset, 6, 2);
+      px('#e0b030', 31, 25 + offset, 2, 1);
+
+      px('#ffe08a', 29, 8 + offset, 2, 10);
+      px('#f4ecd0', 29, 8 + offset, 6, 1);
+      px('#ffe08a', 24, 18 + offset, 5, 1);
+
+      px('#9a7410', 34, 8 + offset, 1, 10);
+      px('#9a7410', 39, 18 + offset, 1, 1);
+      px('#9a7410', 37, 19 + offset, 2, 2);
+      px('#9a7410', 35, 21 + offset, 2, 2);
+      px('#9a7410', 33, 23 + offset, 2, 2);
+
+      px('#0b0e26', 18, 24, 6, 11);
+      px('#0b0e26', 40, 24, 6, 11);
+      px('#0b0e26', 18, 29, 28, 6);
+
+      px('#f4ecd0', 19, 25, 4, 9);
+      px('#f4ecd0', 41, 25, 4, 9);
+      px('#f4ecd0', 19, 30, 26, 4);
+
+      px('#d9cb98', 22, 25, 1, 5);
+      px('#d9cb98', 41, 25, 1, 5);
+      px('#d9cb98', 23, 30, 18, 1);
+      px('#9fb0d8', 19, 33, 26, 1);
+
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'alphabetic';
+      ctx.font = '15px dazel';
+      ctx.fillStyle = '#0b0e26';
+      ctx.fillText('dazelDS15.ttf', 129, 165);
+      ctx.fillStyle = '#f4ecd0';
+      ctx.fillText('dazelDS15.ttf', 128, 164);
+    }
+
+    function syncDownloadAnimation(active) {
+      clearInterval(dlTimer);
+      dlTimer = null;
+      if (active && !reducedMotion) {
+        dlBob = false;
+        drawDownloadIcon(false);
+        dlTimer = setInterval(() => {
+          dlBob = !dlBob;
+          drawDownloadIcon(dlBob);
+        }, 500);
+      } else {
+        drawDownloadIcon(false);
+      }
+    }
+
+    function coverScreen(screen, count) {
+      const height = screen.clientHeight / count;
+      const bands = [];
+      for (let i = 0; i < count; i++) {
+        const band = document.createElement('div');
+        band.className = 'band';
+        band.style.top = `${i * height}px`;
+        band.style.height = `${height + 0.5}px`;
+        screen.append(band);
+        bands.push(band);
+      }
+      return bands;
+    }
+
+    async function revealScreen(bands, minDelay, maxDelay) {
+      for (const band of bands) {
+        playSfx('load', 0.4);
+        if (!reducedMotion) {
+          band.classList.add('g');
+          band.style.backgroundPositionX = `${randomRange(0, 35)}px`;
+          await sleep(45);
+        }
+        band.remove();
+        await sleep(reducedMotion ? 20 : randomRange(minDelay, maxDelay));
+      }
+    }
+
+    async function wipeTransition(target, count, swapContent) {
+      if (reducedMotion) {
+        swapContent();
+        return;
+      }
+
+      const height = target.clientHeight / count;
+      const bands = [];
+      for (let i = 0; i < count; i++) {
+        const band = document.createElement('div');
+        band.className = 'wb';
+        band.style.top = `${i * height}px`;
+        band.style.height = `${height + 0.5}px`;
+        if (i % 2) {
+          band.style.right = '0';
+        } else {
+          band.style.left = '0';
+        }
+        target.append(band);
+        bands.push(band);
+      }
+
+      target.offsetWidth;
+      bands.forEach((band, i) => {
+        band.style.transitionDelay = `${i * 30}ms`;
+        band.style.width = '100%';
+      });
+
+      await sleep(count * 30 + 150);
+      swapContent();
+
+      bands.forEach((band, i) => {
+        band.style.transition = 'none';
+        if (i % 2) {
+          band.style.right = 'auto';
+          band.style.left = '0';
+        } else {
+          band.style.left = 'auto';
+          band.style.right = '0';
+        }
+      });
+
+      target.offsetWidth;
+      bands.forEach((band, i) => {
+        band.style.transition = '';
+        band.style.transitionDelay = `${i * 30}ms`;
+        band.style.width = '0';
+      });
+
+      await sleep(count * 30 + 150);
+      bands.forEach((band) => band.remove());
+    }
+
+    async function typeText(node, text, speed = 40) {
+      const token = (node._typeToken = (node._typeToken || 0) + 1);
+      node._skip = false;
+      node._typing = true;
+      node.textContent = '';
+
+      for (let i = 1; i <= text.length; i++) {
+        if (node._typeToken !== token) return false;
+        if (node._skip) {
+          node.textContent = text;
+          break;
+        }
+        node.textContent = text.slice(0, i);
+        const ch = text[i - 1];
+        if (/\S/.test(ch) && i % 2) {
+          playSfx('blip', 0.3);
+        }
+        await sleep(speed + (/[.…,?!]/.test(ch) ? 150 : 0));
+      }
+
+      if (node._typeToken === token) {
+        node._typing = false;
+        return true;
+      }
+      return false;
+    }
+
+    let toastTimer = null;
+
+    async function showToast(message) {
+      clearTimeout(toastTimer);
+      el.toast.style.display = 'block';
+      const finished = await typeText(el.toast, message, 34);
+      if (finished) {
+        playSfx('end', 0.25);
+        toastTimer = setTimeout(() => {
+          el.toast.style.display = 'none';
+        }, 3600);
+      }
+    }
+
+    el.toast.addEventListener('click', () => {
+      if (el.toast._typing) {
+        el.toast._skip = true;
+      } else {
+        clearTimeout(toastTimer);
+        el.toast.style.display = 'none';
+      }
+    });
+
+    const topViews = {
+      cv: el.cv,
+      prev: el.prev,
+      gv: el.gv,
+      dv: el.dv
+    };
+
+    function showTopView(mode) {
+      for (const key in topViews) {
+        topViews[key].style.display = key === mode ? 'block' : 'none';
+      }
+      syncTitleAnimation(mode === 'cv');
+      syncDownloadAnimation(mode === 'dv');
+      if (mode === 'prev') {
+        syncPreview();
+      } else {
+        stopPreview();
+      }
+    }
+
+    function switchTopView(mode) {
+      if (mode === topMode) return Promise.resolve();
+      topMode = mode;
+      return wipeTransition(el.top, 8, () => showTopView(mode));
+    }
+
+    let previewY = 0;
+    let previewMax = 0;
+    let previewInterval = null;
+    let previewWait = null;
+
+    function stopPreview() {
+      clearTimeout(previewWait);
+      clearInterval(previewInterval);
+      previewWait = null;
+      previewInterval = null;
+    }
+
+    function applyPreviewScroll(y) {
+      previewY = Math.max(0, Math.min(previewMax, y));
+      el.ptxt.style.transform = `translateY(${-previewY}px)`;
+    }
+
+    function measurePreview() {
+      const isLarge = el.ta.style.fontSize === '30px';
+      el.ptxt.style.fontSize = `${isLarge ? 60 : 30}px`;
+      el.ptxt.style.lineHeight = `${isLarge ? 68 : 34}px`;
+      const value = el.ta.value;
+      el.ptxt.textContent = value.endsWith('\n') ? `${value} ` : value;
+      previewMax = Math.max(0, el.ptxt.scrollHeight - el.pview.clientHeight);
+    }
+
+    function startPreviewAutoScroll(delay = 1200) {
+      stopPreview();
+      if (reducedMotion || previewMax <= 0 || topMode !== 'prev' || activeTab !== 'p1') return;
+
+      const step = el.ta.style.fontSize === '30px' ? 16 : 8;
+      const run = () => {
+        previewInterval = setInterval(() => {
+          if (topMode !== 'prev' || activeTab !== 'p1' || previewMax <= 0) {
+            stopPreview();
+            return;
+          }
+          if (previewY < previewMax) {
+            applyPreviewScroll(previewY + step);
+          } else {
+            clearInterval(previewInterval);
+            previewInterval = null;
+            previewWait = setTimeout(() => {
+              applyPreviewScroll(0);
+              previewWait = setTimeout(run, 1100);
+            }, 1600);
+          }
+        }, 130);
+      };
+
+      previewWait = setTimeout(run, delay);
+    }
+
+    function syncPreview(mode) {
+      measurePreview();
+      if (previewMax <= 0) {
+        stopPreview();
+        applyPreviewScroll(0);
+        return;
+      }
+
+      if (mode === 'type') {
+        stopPreview();
+        const step = el.ta.style.fontSize === '30px' ? 16 : 8;
+        if (previewY < previewMax) {
+          previewInterval = setInterval(() => {
+            if (previewY >= previewMax) {
+              clearInterval(previewInterval);
+              previewInterval = null;
+              startPreviewAutoScroll(2000);
+            } else {
+              applyPreviewScroll(previewY + step);
+            }
+          }, 55);
+        } else {
+          applyPreviewScroll(previewMax);
+          startPreviewAutoScroll(2000);
+        }
+      } else {
+        applyPreviewScroll(0);
+        startPreviewAutoScroll(1000);
+      }
+    }
+
+    el.prev.addEventListener('wheel', (event) => {
+      if (topMode !== 'prev' || previewMax <= 0) return;
+      event.preventDefault();
+      const step = el.ta.style.fontSize === '30px' ? 16 : 8;
+      applyPreviewScroll(previewY + Math.sign(event.deltaY) * step * 2);
+      startPreviewAutoScroll(2800);
+    }, { passive: false });
+
+    const GLYPH_ROWS = [
+      '가나다라마바사아자차카타파하',
+      '각낙닫랄맘밥삿앙잦찾캑탄팝핫',
+      '값닭몫읊흙괜찮닮앉읽훑뷁쀍',
+      'あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをん',
+      'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン',
+      'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+      'abcdefghijklmnopqrstuvwxyz',
+      '0123456789!?.,~-+',
+      '✉✕✚❓❗➡⬅⬆⬇ⒶⒷⓍⓎ🄻🅁',
+      '📱🕐😀😑😠😫',
+      '☀☁☂☃',
+      '©®°™〒※'
+    ];
+
+    GLYPH_ROWS.forEach((row) => {
+      const group = document.createElement('div');
+      group.className = 'g1';
+      for (const ch of row) {
+        const span = document.createElement('span');
+        span.className = 'c';
+        span.textContent = ch;
+        group.append(span);
+      }
+      el.p2.append(group);
+    });
+
+    function selectGlyph(ch) {
+      el.gbig.textContent = ch;
+      el.gcode.textContent = `U+${ch.codePointAt(0).toString(16).toUpperCase().padStart(4, '0')}`;
+
+      const small = document.createElement('span');
+      small.style.fontSize = '15px';
+      small.textContent = ch;
+
+      const large = document.createElement('span');
+      large.style.fontSize = '30px';
+      large.textContent = ch;
+
+      el.gsm.replaceChildren(small, ' ', large);
+    }
+
+    selectGlyph('다');
+
+    el.p2.addEventListener('click', (event) => {
+      const cell = event.target.closest('.c');
+      if (!cell) return;
+      el.p2.querySelectorAll('.c.sel').forEach((node) => node.classList.remove('sel'));
+      cell.classList.add('sel');
+      selectGlyph(cell.textContent);
+      playSfx('blip', 0.4);
+      if (topMode !== 'gv') {
+        switchTopView('gv');
+      }
+    });
+
+    const INFO_LINES = [
+      '젤다 게임의 한글 폰트에서 영감을 받아 제작된 폰트입니다.',
+      '글자: 한글 완성형 전체, 히라가나, 가타카나, 알파벳을 지원합니다.',
+      '서식: DS 시절 모험 게임풍 픽셀 폰트. 15px 또는 그 배수 크기를 권장합니다.',
+      '라이선스: OFL-1.1. 이하 요약입니다.',
+      '상업적 이용: 가능\n폰트로 만든 제작물은 용도와 매체에 관계없이 상업적으로 이용하거나 판매할 수 있습니다.',
+      '임베드 및 번들: 가능\n문서·게임·소프트웨어에 포함하거나 웹 폰트로 사용할 수 있습니다. 폰트를 포함한 제작물의 라이선스는 변경할 필요가 없습니다.',
+      '제작물 출처 표기: 필수 아님\n폰트로 만든 제작물에 폰트명·출처·저작자명을 표시할 필요가 없습니다.',
+      '필수는 아니지만, 사용 시 newhajinyoon@gmail.com으로 연락주시면 기뻐서 공중제비를 돌 수도 있습니다.',
+      '수정: 가능\n폰트를 수정·병합하거나 다른 형식으로 변환할 수 있으며, 수정본을 공개할 의무는 없습니다.',
+      '재배포: 조건부 가능\n원본과 수정본 모두 재배포할 수 있습니다. 폰트의 라이선스는 변경할 수 없으며 계속 OFL-1.1로 배포해야 합니다.',
+      '저작자명 홍보: 금지\n저작권자·저자 이름을 수정본의 홍보·추천·보증에 사용할 수 없습니다. 기여 사실 표기는 가능합니다.',
+      '단독 판매: 금지\n폰트나 그 구성 요소만 따로 판매할 수 없습니다. 다른 소프트웨어와 함께 판매하는 것은 가능합니다.',
+      '보증 및 책임: 제공하지 않음\n폰트는 아무런 보증 없이 제공됩니다. 저작권자는 사용·사용 불능으로 생긴 청구나 손해에 책임지지 않습니다.',
+      '조건 위반: 라이선스 무효\nOFL-1.1 조건을 위반하면 라이선스가 무효가 됩니다.',
+      {
+        text: '이 표는 OFL-1.1의 이해를 돕기 위한 요약이며 법적 효력이 있는 번역이 아닙니다. 해석이 다른 경우 ',
+        link: ['영어 원문', 'https://openfontlicense.org/open-font-license-official-text/'],
+        tail: '이 우선합니다.'
+      },
+      '© Hajin Yoon (newhajinyoon@gmail.com)'
+    ];
+
+    INFO_LINES.forEach((item) => {
+      const p = document.createElement('p');
+      if (typeof item === 'string') {
+        item.split('\n').forEach((line, idx) => {
+          if (idx > 0) p.append(document.createElement('br'));
+          p.append(line);
+        });
+      } else {
+        const link = document.createElement('a');
+        link.textContent = item.link[0];
+        link.href = item.link[1];
+        link.target = '_blank';
+        link.rel = 'noopener';
+        p.append(item.text, link, item.tail);
+      }
+      el.ibody.append(p);
+    });
+
+    const INFO_STEP = 17;
+    let infoY = 0;
+    let infoMax = 0;
+    let wheelAcc = 0;
+
+    function syncInfoScroll() {
+      const rawMax = Math.max(0, el.ibody.scrollHeight - el.iview.clientHeight);
+      infoMax = Math.ceil(rawMax / INFO_STEP) * INFO_STEP;
+      infoY = Math.max(0, Math.min(infoMax, Math.round(infoY / INFO_STEP) * INFO_STEP));
+      el.ibody.style.transform = `translateY(${-infoY}px)`;
+
+      if (infoMax > 0) {
+        el.isbar.style.display = 'block';
+        const trackHeight = el.isbar.clientHeight;
+        const thumbHeight = Math.max(12, Math.round(trackHeight * (el.iview.clientHeight / el.ibody.scrollHeight)));
+        el.ithumb.style.height = `${thumbHeight}px`;
+        el.ithumb.style.top = `${Math.round((trackHeight - thumbHeight) * (infoY / infoMax))}px`;
+      } else {
+        el.isbar.style.display = 'none';
+      }
+    }
+
+    function stepInfo(lines) {
+      if (infoMax <= 0) return;
+      infoY = Math.max(0, Math.min(infoMax, infoY + lines * INFO_STEP));
+      syncInfoScroll();
+    }
+
+    el.p3.addEventListener('wheel', (event) => {
+      if (infoMax <= 0) return;
+      event.preventDefault();
+      const dy = event.deltaMode === 1
+        ? event.deltaY * INFO_STEP
+        : event.deltaMode === 2
+          ? event.deltaY * INFO_STEP * 6
+          : event.deltaY;
+
+      wheelAcc += dy;
+      if (Math.abs(wheelAcc) >= 20) {
+        const count = Math.trunc(wheelAcc / 20);
+        wheelAcc -= count * 20;
+        stepInfo(Math.sign(count) * (Math.abs(dy) >= 48 ? 2 : 1));
+      }
+    }, { passive: false });
+
+    let pointerDrag = null;
+
+    el.p3.addEventListener('pointerdown', (event) => {
+      if (event.target.closest('a') || event.target.closest('#isbar')) return;
+      pointerDrag = {
+        id: event.pointerId,
+        y0: event.clientY,
+        base: infoY,
+        moved: false
+      };
+    });
+
+    el.p3.addEventListener('pointermove', (event) => {
+      if (!pointerDrag || event.pointerId !== pointerDrag.id) return;
+      const dy = (pointerDrag.y0 - event.clientY) / scale;
+      if (!pointerDrag.moved && Math.abs(dy) > 4) {
+        pointerDrag.moved = true;
+        el.p3.setPointerCapture(event.pointerId);
+      }
+      if (pointerDrag.moved) {
+        infoY = Math.max(0, Math.min(infoMax, pointerDrag.base + Math.round(dy / INFO_STEP) * INFO_STEP));
+        syncInfoScroll();
+      }
+    });
+
+    addEventListener('pointerup', (event) => {
+      if (pointerDrag && event.pointerId === pointerDrag.id) {
+        pointerDrag = null;
+      }
+    });
+
+    addEventListener('pointercancel', (event) => {
+      if (pointerDrag && event.pointerId === pointerDrag.id) {
+        pointerDrag = null;
+      }
+    });
+
+    el.isbar.addEventListener('pointerdown', (event) => {
+      if (infoMax <= 0) return;
+      const rect = el.isbar.getBoundingClientRect();
+      const ratio = Math.max(0, Math.min(1, (event.clientY - rect.top) / rect.height));
+      infoY = Math.round((infoMax * ratio) / INFO_STEP) * INFO_STEP;
+      syncInfoScroll();
+    });
+
+    el.p3.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowDown') {
+        event.preventDefault();
+        stepInfo(1);
+      } else if (event.key === 'ArrowUp') {
+        event.preventDefault();
+        stepInfo(-1);
+      } else if (event.key === 'PageDown' || event.key === ' ') {
+        event.preventDefault();
+        stepInfo(6);
+      } else if (event.key === 'PageUp') {
+        event.preventDefault();
+        stepInfo(-6);
+      } else if (event.key === 'Home') {
+        event.preventDefault();
+        infoY = 0;
+        syncInfoScroll();
+      } else if (event.key === 'End') {
+        event.preventDefault();
+        infoY = infoMax;
+        syncInfoScroll();
+      }
+    });
+
+    el.p3.addEventListener('focusin', (event) => {
+      if (!event.target.closest('a') || infoMax <= 0) return;
+      const viewRect = el.iview.getBoundingClientRect();
+      const linkRect = event.target.getBoundingClientRect();
+      if (linkRect.bottom > viewRect.bottom) {
+        stepInfo(Math.ceil((linkRect.bottom - viewRect.bottom) / (INFO_STEP * scale)));
+      } else if (linkRect.top < viewRect.top) {
+        stepInfo(-Math.ceil((viewRect.top - linkRect.top) / (INFO_STEP * scale)));
+      }
+    });
+
+    const TOP_BY_TAB = {
+      p1: () => (hasTyped ? 'prev' : 'cv'),
+      p2: () => 'gv',
+      p3: () => 'cv',
+      p4: () => 'dv'
+    };
+
+    async function switchTab(target) {
+      if (isBusy || target === activeTab || !isReady) return;
+      isBusy = true;
+      stopPreview();
+
+      tabButtons.forEach((btn) => btn.setAttribute('aria-selected', btn.dataset.p === target));
+      const nextTop = TOP_BY_TAB[target]();
+      playSfx('load', 0.45);
+
+      const tasks = [
+        wipeTransition(el.pgs, 6, () => {
+          pages.forEach((page) => page.classList.toggle('on', page.id === target));
+          if (target === 'p3') syncInfoScroll();
+        })
+      ];
+
+      if (nextTop !== topMode) {
+        topMode = nextTop;
+        tasks.push(wipeTransition(el.top, 8, () => showTopView(nextTop)));
+      }
+
+      await Promise.all(tasks);
+      activeTab = target;
+      isBusy = false;
+
+      if (target === 'p3') {
+        el.p3.focus({ preventScroll: true });
+      }
+      if (target === 'p1' && topMode === 'prev') {
+        syncPreview();
+      }
+    }
+
+    tabButtons.forEach((btn) => {
+      btn.addEventListener('click', () => switchTab(btn.dataset.p));
+    });
+
+    el.ta.addEventListener('input', (event) => {
+      if (event.data && /\S/.test(event.data)) {
+        playSfx('blip', 0.25);
+      }
+      if (!hasTyped) {
+        hasTyped = true;
+        switchTopView('prev').then(() => syncPreview('type'));
+      } else {
+        syncPreview('type');
+      }
+    });
+
+    sizeButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        sizeButtons.forEach((other) => other.setAttribute('aria-pressed', other === btn));
+        if (btn.dataset.s === '30') {
+          el.ta.style.fontSize = '30px';
+          el.ta.style.lineHeight = '34px';
+        } else {
+          el.ta.style.fontSize = '';
+          el.ta.style.lineHeight = '';
+        }
+        playSfx('end', 0.3);
+        if (topMode === 'prev') {
+          syncPreview();
+        }
+      });
+    });
+
+    el.mute.addEventListener('click', () => {
+      isMuted = !isMuted;
+      bgm.muted = isMuted;
+      el.mute.textContent = isMuted ? '소리 꺼짐' : '소리 켜짐';
+    });
+
+    async function bootDevice() {
+      el.led.classList.add('on');
+      if (!reducedMotion) {
+        el.boot.style.background = '#f4ecd0';
+        el.boot.textContent = '';
+        await sleep(65);
+      }
+      el.boot.remove();
+
+      const topBands = coverScreen(el.top, 12);
+      const bottomBands = coverScreen(el.bot, 6);
+
+      bgm.play().then(() => {
+        let vol = 0;
+        const fade = setInterval(() => {
+          vol = Math.min(0.35, vol + 0.02);
+          bgm.volume = vol;
+          if (vol >= 0.35) clearInterval(fade);
+        }, 100);
+      }).catch(() => {});
+
+      await Promise.race([document.fonts.load('30px dazel'), sleep(2500)]);
+      buildTitleBuffer();
+      drawDownloadIcon(false);
+      showTopView('cv');
+      el.bg.textContent = '가나다라마바사아자차카타파하あいうえおアイウエオABCDEFG'.repeat(14);
+
+      await sleep(320);
+      await revealScreen(topBands, 35, 90);
+      await revealScreen(bottomBands, 25, 60);
+
+      isReady = true;
+      await sleep(300);
+      showToast('…어, 켜졌다.');
+    }
+
+    el.boot.addEventListener('pointerdown', bootDevice, { once: true });
+    el.boot.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        bootDevice();
+      }
+    }, { once: true });
+
+    addEventListener('resize', fitLayout);
+  </script>
+</body>
+</html>
